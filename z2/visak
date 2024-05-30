@@ -1,0 +1,6 @@
+<tr>
+        <td style='font-weight: 800;'><?php echo $predracun->$akontacija->uplata ?></td>
+        <td><?php echo $predracun->$akontacija->nacinPlacanja ?></td>
+        <td><?php echo $predracun->$akontacija->vrijemePlacanja ?></td>
+        <td style='font-weight: 800;'><?php echo $predracun->$akontacija->iznos ?></td>
+      </tr> 

@@ -1,0 +1,38 @@
+html{
+background-color: whitesmoke;
+
+}
+.page{
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+table{
+    table-layout: auto;
+    width: 80%;
+}
+table,th,td{
+    border: 2px solid rgba(26,116,180,255);
+    border-collapse: collapse;
+    white-space: nowrap;
+    padding: 8px;
+}
+th{
+    background-color: rgba(129,191,237,255);
+    height: 20px;
+    width: 100px;
+}
+td{
+    text-align: center;
+    height: 15px;
+}
+p{
+    align-self: flex-start;
+    margin: 0px;
+    margin-left: 150px;
+    margin-top: 15px;
+    padding: 2px;
+}
