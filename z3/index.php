@@ -1,7 +1,7 @@
 <?php
 
 // Database connection
-include 'database.php';
+include "database.php";
 
 include 'service.php';
 $artikalService = new ArtikalService();
@@ -78,10 +78,39 @@ $result = $conn->query($sql);
     <input type="date" id="selectedDate" name="selectedDate">
     <button type="submit">Odabir</button>
   </form>
+  <div class="novi-unos">
+    <h2>dodaj novi artikal</h2>
+    <form action="index.php" method="POST">
+
+      <label for="noviArtikal">Novi artikal:</label>
+      <input type="input" id="noviArtikal" name="noviArtikal">
+
+      <label for="stanje">Stanje:</label>
+      <input type="input" id="stanje" name="stanje">
+
+      <label for="mjernaJedinica">Mjerna jedinica:</label>
+      <input type="input" id="mjernaJedinica" name="mjernaJedinica">
+
+      <label for="cijena">Cijena:</label>
+      <input type="input" id="cijena" name="cijena">
+
+      <label for="cijena">Potrebno Nabaviti:</label>
+      <input type="potrebnoNabaviti" id="potrebnoNabaviti" name="potrebnoNabaviti">
+
+      <label for="cijenaUNabavi">Cijena U Nabavi:</label>
+      <input type="input" id="cijenaUNabavi" name="cijenaUNabavi">
+
+      <label for="krajnjiRok">Krajnji Rok :</label>
+      <input type="date" id="krajnjiRok" name="krajnjiRok">
+
+      <button type="submit">Odabir</button>
+    </form>
+  </div>
   <?php
-    echo "<h2>Ukupna vrijednost skladista: " . $artikalService->UkupnaVrijednost() . " €</h2>";
-    echo "<h2>Nabava do " . $artikalService->NarudbaDoDatuma()[0] . " u dolarima: " . $artikalService->NarudbaDoDatuma()[1] . " $</h2>";
-    $conn->close();
+  echo "<h2>Ukupna vrijednost skladista: " . $artikalService->UkupnaVrijednost() . " €</h2>";
+  echo "<h2>Nabava do " . $artikalService->NarudbaDoDatuma()[0] . " u dolarima: " . $artikalService->NarudbaDoDatuma()[1] . " $</h2>";
+  $conn->close();
   ?>
 </body>
+
 </html>

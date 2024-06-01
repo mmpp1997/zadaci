@@ -8,3 +8,7 @@ th, td {
     border: 1px solid black;
     text-align: left;
 }
+.novi-unos *{
+    padding: 2px;
+    display: block;
+}
