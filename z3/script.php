@@ -30,16 +30,7 @@ $artikli = [
 ];
 
 // Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "artikli";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'database.php';
 
 $stmt = $conn->prepare("INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
 VALUES (?, ?, ?, ?, ?, ?, ?)");
