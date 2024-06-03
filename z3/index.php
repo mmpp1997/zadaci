@@ -9,6 +9,9 @@ $artikalService = new ArtikalService();
 // Retrieve data from the database
 $sql = "SELECT artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave FROM tablica_artikala";
 $result = $conn->query($sql);
+
+$sql_2 = "SELECT id, artikal FROM tablica_artikala";
+$result_2 = $conn->query($sql_2);
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,7 @@ $result = $conn->query($sql);
 </head>
 
 <body>
+  <h3>Zadatak 1</h3>
   <table>
     <tr>
       <th>Artikal</th>
@@ -73,15 +77,27 @@ $result = $conn->query($sql);
     }
     ?>
   </table>
+  <hr />
+  <h3>Zadatak 2</h3>
+  <?php
+  echo "<h4>Ukupna vrijednost skladista: " . $artikalService->UkupnaVrijednost() . " €</h4>";
+  $conn->close();
+  ?>
+  <hr />
+  <h3>Zadatak 3</h3>
   <form action="index.php" method="GET">
     <label for="selectedDate">Odaberi datum :</label>
     <input type="date" id="selectedDate" name="selectedDate">
     <button type="submit">Odabir</button>
   </form>
+  <?php
+  echo "<h4>Nabava do " . $artikalService->NarudbaDoDatuma()[0] . " u dolarima: " . $artikalService->NarudbaDoDatuma()[1] . " $</h4>";
+  ?>
+  <hr />
+  <h3>Zadatak 4 - Dodaj novi artikal</h3>
   <div class="novi-unos">
-    <h2>dodaj novi artikal</h2>
     <form action="index.php" method="POST">
-
+      <input type="hidden" name="_method" value="POST">
       <label for="noviArtikal">Novi artikal:</label>
       <input type="input" id="noviArtikal" name="noviArtikal">
 
@@ -106,11 +122,27 @@ $result = $conn->query($sql);
       <button type="submit">Odabir</button>
     </form>
   </div>
-  <?php
-  echo "<h2>Ukupna vrijednost skladista: " . $artikalService->UkupnaVrijednost() . " €</h2>";
-  echo "<h2>Nabava do " . $artikalService->NarudbaDoDatuma()[0] . " u dolarima: " . $artikalService->NarudbaDoDatuma()[1] . " $</h2>";
-  $conn->close();
-  ?>
+  <hr />
+  <h3>Zadatak 5</h3>
+
+  <form action="index.php" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <label for="artikalId">Odaberite artikal:</label>
+    <select name="artikalId" id="artikalId">
+      <?php
+      if ($result_2->num_rows > 0) {
+        while ($row = $result_2->fetch_assoc()) {
+          $id = $row["id"];
+          echo "<option value=$id>" . $row["artikal"] .  "</option>";
+        }
+      }
+      ?>
+    </select>
+    <label for="novoStanje"> | Novo stanje: </label>
+    <input type="input" id="novoStanje" name="novoStanje">
+    <input type="submit" value="Izmjeni">
+  </form>
+  <hr />
 </body>
 
 </html>

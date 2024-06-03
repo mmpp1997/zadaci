@@ -67,11 +67,31 @@ class ArtikalService
             exit();
         }
     }
+    public function IzmjeniStanje()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+            include "database.php";
+            // Get input values from the form
+            $artikalId = $_POST['artikalId'];
+            $novoStanje = $_POST['novoStanje'];
+            $sql = "UPDATE tablica_artikala SET stanje_na_skladistu = $novoStanje WHERE id=$artikalId;";
+            $conn->query($sql);
+            $conn->close();
+            header("Location: " . $_SERVER['REQUEST_URI']);
+            exit();
+        }
+    }
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['_method']) && $_POST['_method'] === 'POST') {
     // Create an instance of ArtikalService
     $service = new ArtikalService();
     // Call the NoviUnos method
     $service->NoviUnos();
 }
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['_method']) && $_POST['_method'] === 'PUT') {
+    // Create an instance of ArtikalService
+    $service = new ArtikalService();
+    // Call the IzmjeniStanje method
+    $service->IzmjeniStanje();
+}

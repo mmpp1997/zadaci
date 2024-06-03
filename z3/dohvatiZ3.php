@@ -1,6 +1,6 @@
 <?php
 //url
-$url = "unesi iz url.txt";
+$url = "private_url";
 //potrebna sifra
 $pass = file_get_contents($url);
 
