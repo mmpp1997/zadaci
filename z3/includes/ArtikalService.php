@@ -46,9 +46,7 @@ class ArtikalService
     }
     public function NoviUnos()
     {
-        if (isset($_POST['noviArtikal']) && ($_POST['noviArtikal'])!="") {
-
-            require 'config/database.php';
+        if (isset($_POST['noviArtikal']) && ($_POST['noviArtikal']) != "") {
 
             $noviArtikal = htmlspecialchars($_POST['noviArtikal']);
             $stanje = htmlspecialchars($_POST['stanje']);
@@ -58,32 +56,39 @@ class ArtikalService
             $cijenaUNabavi = htmlspecialchars($_POST['cijenaUNabavi']);
             $krajnjiRok = htmlspecialchars($_POST['krajnjiRok']);
 
-            $sql = "INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
-                VALUES ('$noviArtikal', '$stanje', '$cijena','$mjernaJedinica', '$potrebnoNabaviti', '$cijenaUNabavi', '$krajnjiRok')";
-            
-            $conn->query($sql);
-            $conn->close();
+            try {
+                require 'config/database.php';
 
-        }
-        else{
-            die("Neispravan unos podatka naziv artikla");
+                $sql = "INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
+                VALUES ('$noviArtikal', '$stanje', '$cijena','$mjernaJedinica', '$potrebnoNabaviti', '$cijenaUNabavi', '$krajnjiRok')";
+
+                $conn->query($sql);
+                $conn->close();
+            } catch (mysqli_sql_exception $error) {
+                die("Greška: " . $error);
+            }
+        } else {
+            die("Molimo unesite naziv artikla");
         }
     }
     public function IzmjeniStanje()
     {
         if (isset($_POST['novoStanje']) && is_numeric($_POST['novoStanje'])) {
-            
-            require 'config/database.php';
-            
+
             $artikalId = $_POST['artikalId'];
             $novoStanje = $_POST['novoStanje'];
 
-            $sql = "UPDATE tablica_artikala SET stanje_na_skladistu = $novoStanje WHERE id=$artikalId;";
-            $conn->query($sql);
-            $conn->close();
+            try {
+                require 'config/database.php';
+                $sql = "UPDATE tablica_artikala SET stanje_na_skladistu = $novoStanje WHERE id=$artikalId;";
+                $conn->query($sql);
+                $conn->close();
+            } catch (mysqli_sql_exception $error) {
+                die("Greška: " . $error);
+            }
 
-        }else{
-            die("Neispravan unos podatka za novo stanje");
+        } else {
+            die("Molimo unesite novo stanje artikla");
         }
     }
 }
