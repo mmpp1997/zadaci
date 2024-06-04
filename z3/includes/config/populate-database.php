@@ -1,25 +1,6 @@
 <?php
-class Artikal
-{
-    public $artikal;
-    public $stanjeNaSkladistu;
-    public $cijena;
-    public $mjernaJedinica;
-    public $potrebnoNabaviti;
-    public $cijenaUNabavi;
-    public $krajnjiRokNabave;
 
-    public function __construct($artikal, $stanjeNaSkladistu, $cijena, $mjernaJedinica, $potrebnoNabaviti, $cijenaUNabavi, $krajnjiRokNabave)
-    {
-        $this->artikal = $artikal;
-        $this->stanjeNaSkladistu = $stanjeNaSkladistu;
-        $this->cijena = $cijena;
-        $this->mjernaJedinica = $mjernaJedinica;
-        $this->potrebnoNabaviti = $potrebnoNabaviti;
-        $this->cijenaUNabavi = $cijenaUNabavi;
-        $this->krajnjiRokNabave = $krajnjiRokNabave;
-    }
-}
+include __DIR__ . "/../ArtikalClass.php";
 
 $artikli = [
     new Artikal("paprika", 1225.25, 0.89, "kg", null, null, null),
@@ -29,12 +10,11 @@ $artikli = [
     new Artikal("žarulja 20W", 250, 2.74, "komad", 300, 1.25, "2024-04-20"),
 ];
 
-// Database connection
-include 'includes/config/database.php';
+include 'database.php';
 
 $create = "CREATE TABLE tablica_artikala (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    artikal VARCHAR(255) NOT NULL,
+    artikal VARCHAR(255) UNIQUE NOT NULL,
     stanje_na_skladistu DECIMAL(10, 2) NOT NULL,
     cijena DECIMAL(10, 2),
     mjerna_jedinica VARCHAR(255),
@@ -44,11 +24,11 @@ $create = "CREATE TABLE tablica_artikala (
 );";
 $conn->query($create);
 
-$stmt = $conn->prepare("INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
+$sql = $conn->prepare("INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
 VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 foreach ($artikli as $artikal) {
-    $stmt->bind_param(
+    $sql->bind_param(
         "sddsdds",
         $artikal->artikal,
         $artikal->stanjeNaSkladistu,
@@ -58,8 +38,8 @@ foreach ($artikli as $artikal) {
         $artikal->cijenaUNabavi,
         $artikal->krajnjiRokNabave
     );
-    $stmt->execute();
+    $sql->execute();
 }
 
-$stmt->close();
+$sql->close();
 $conn->close();

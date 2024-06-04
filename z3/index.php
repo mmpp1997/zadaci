@@ -3,7 +3,8 @@
 // Database connection
 include 'includes/config/database.php';
 
-include 'includes/service.php';
+include 'includes/ArtikalService.php';
+
 $artikalService = new ArtikalService();
 
 // Retrieve data from the database
@@ -45,7 +46,6 @@ $result_2 = $conn->query($sql_2);
     </tr>
     <?php
     if ($result->num_rows > 0) {
-      // Output data of each row
       while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>" . $row["artikal"] . "</td>";
@@ -81,13 +81,12 @@ $result_2 = $conn->query($sql_2);
   <h3>Zadatak 2</h3>
   <?php
   echo "<h4>Ukupna vrijednost skladista: " . $artikalService->UkupnaVrijednost() . " €</h4>";
-  $conn->close();
   ?>
   <hr />
   <h3>Zadatak 3</h3>
   <form action="index.php" method="GET">
-    <label for="selectedDate">Odaberi datum :</label>
-    <input type="date" id="selectedDate" name="selectedDate">
+    <label for="odabraniDatum">Odaberi datum :</label>
+    <input type="date" id="odabraniDatum" name="odabraniDatum">
     <button type="submit">Odabir</button>
   </form>
   <?php
