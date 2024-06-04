@@ -4,7 +4,7 @@ class ArtikalService
 {
     public function UkupnaVrijednost()
     {
-        include 'config/database.php';
+        require 'config/database.php';
 
         $sql = "SELECT stanje_na_skladistu, cijena FROM tablica_artikala";
         $result = $conn->query($sql);
@@ -16,6 +16,7 @@ class ArtikalService
             }
         }
 
+        $conn->close();
         return number_format($sum, 2);
     }
 
@@ -28,7 +29,7 @@ class ArtikalService
         }
         $odabraniDatum = htmlspecialchars($odabraniDatum);
 
-        include 'config/database.php';
+        require 'config/database.php';
 
         $sql = "SELECT potrebno_nabaviti, cijena_u_nabavi FROM tablica_artikala WHERE krajnji_rok_nabave <= '$odabraniDatum';";
         $result = $conn->query($sql);
@@ -40,13 +41,14 @@ class ArtikalService
             }
         }
 
+        $conn->close();
         return [$odabraniDatum, number_format($sum * 1.03, 2)];
     }
     public function NoviUnos()
     {
         if (isset($_POST['noviArtikal']) && ($_POST['noviArtikal'])!="") {
 
-            include 'config/database.php';
+            require 'config/database.php';
 
             $noviArtikal = htmlspecialchars($_POST['noviArtikal']);
             $stanje = htmlspecialchars($_POST['stanje']);
@@ -75,7 +77,7 @@ class ArtikalService
     {
         if (isset($_POST['novoStanje']) && is_numeric($_POST['novoStanje'])) {
             
-            include 'config/database.php';
+            require 'config/database.php';
             
             $artikalId = $_POST['artikalId'];
             $novoStanje = $_POST['novoStanje'];

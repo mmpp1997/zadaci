@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . "/../ArtikalClass.php";
+require __DIR__ . "/../ArtikalClass.php";
 
 $artikli = [
     new Artikal("paprika", 1225.25, 0.89, "kg", null, null, null),
@@ -10,7 +10,7 @@ $artikli = [
     new Artikal("žarulja 20W", 250, 2.74, "komad", 300, 1.25, "2024-04-20"),
 ];
 
-include 'database.php';
+require 'database.php';
 
 $create = "CREATE TABLE tablica_artikala (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,6 +22,7 @@ $create = "CREATE TABLE tablica_artikala (
     cijena_u_nabavi DECIMAL(10, 2),
     krajnji_rok_nabave DATE
 );";
+
 $conn->query($create);
 
 $sql = $conn->prepare("INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 

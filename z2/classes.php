@@ -40,11 +40,11 @@ $predracun = new Predracun(
     "08.08.2022",
     "15.08.2022",
     "2",
-    "104.48 €",
+    "104",
     new DinamikaPlacanja(
         "Akontacija",
         "Kreditnom karticom (Visa, EC/MC, Maestro)",
-        "364.00 €"
+        "364"
     ),
     new DinamikaPlacanja(
         "Ostatak iznosa",

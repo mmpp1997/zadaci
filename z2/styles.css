@@ -7,8 +7,7 @@ background-color: whitesmoke;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    
+    justify-content: center; 
 }
 table{
     table-layout: auto;
@@ -31,8 +30,6 @@ td{
 }
 p{
     align-self: flex-start;
-    margin: 0px;
-    margin-left: 150px;
-    margin-top: 15px;
+    margin: 15px 0px 0px 150px;
     padding: 2px;
 }

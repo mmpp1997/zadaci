@@ -11,10 +11,12 @@
 <body>
   <?php
   include 'classes.php';
+
   $pocetak = new DateTime($predracun->datumPocetka);
   $kraj = new DateTime($predracun->datumZavrsetka);
   $kolicina = $pocetak->diff($kraj)->d;
   $ukupno = $kolicina * floatval($predracun->cijena);
+
   ?>
   <div class="page">
     <h3>PREDRAČUN BR. <?php echo $predracun->broj; ?> ZA USLUGU SMJEŠTAJA</h3>
@@ -29,7 +31,7 @@
         <td><?php echo $predracun->oznaka; ?></td>
         <td><?php echo $predracun->datumPocetka . " - " . $predracun->datumZavrsetka; ?></td>
         <td><?php echo $predracun->brojOsoba; ?> (osobe)</td>
-        <td><?php echo $predracun->cijena; ?></td>
+        <td><?php echo $predracun->cijena; ?> €</td>
         <td><?php echo $kolicina; ?> (noćenja)</td>
         <td><?php echo $ukupno; ?> €</td>
       </tr>
@@ -54,7 +56,7 @@
         <td style='font-weight: 800;'><?php echo $predracun->akontacija->uplata ?></td>
         <td><?php echo $predracun->akontacija->nacinPlacanja ?></td>
         <td><?php echo $predracun->datumPocetka ?> do 11:00</td>
-        <td style='font-weight: 800;'><?php echo $predracun->akontacija->iznos ?></td>
+        <td style='font-weight: 800;'><?php echo $predracun->akontacija->iznos ?> €</td>
       </tr>
       <tr>
         <td style='font-weight: 800;'><?php echo $predracun->ostatak->uplata ?></td>

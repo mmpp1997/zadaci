@@ -1,62 +1,39 @@
 <?php
 
-function intersect($arrayA, $arrayB, $arrayC)
+function checkElement($element, $array)
+{
+  foreach ($array as $value) {
+    if ($element == $value) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function intersect($firstArray, $secondArray, $thirdArray)
 {
   $common = [];
-  for ($i = 0; $i < count($arrayA); $i++) {
 
-    $flagB = false;
-    for ($j = 0; $j < count($arrayB); $j++) {
-      if ($arrayA[$i] == $arrayB[$j]) {
-        $flagB = true;
-        break;
-      }
+  foreach ($firstArray as $element) {
+    if (checkElement($element, $secondArray) && checkElement($element, $thirdArray)) {
+      $common[] = $element;
     }
-    if ($flagB != false) {
-      $flagC = false;
-      for ($k = 0; $k < count($arrayC); $k++) {
-        if ($arrayA[$i] == $arrayC[$k]) {
-          $flagC = true;
-          break;
-        }
-      }
-    }
-
-    if ($flagB  && $flagC) {
-      $common[] = $arrayA[$i];
-    }
-    $flagB = $flagB = false;
   }
+
   return $common;
 }
 
-function differance($firstArray, $seccondArray, $thirdArray)
+function differance($firstArray, $secondArray, $thirdArray)
 {
-  $onlyInfirst = [];
-  for ($i = 0; $i < count($firstArray); $i++) {
+  $onlyInFirst = [];
 
-    $flagB = true;
-    for ($j = 0; $j < count($seccondArray); $j++) {
-      if ($firstArray[$i] == $seccondArray[$j]) {
-        $flagB = false;
-        break;
-      }
-    }
-    if ($flagB != false) {
-      $flagC = true;
-      for ($k = 0; $k < count($thirdArray); $k++) {
-        if ($firstArray[$i] == $thirdArray[$k]) {
-          $flagC = false;
-          break;
-        }
-      }
-    }
-
-    if ($flagB  && $flagC) {
-      $onlyInfirst[] = $firstArray[$i];
+  foreach ($firstArray as $element) {
+    if (!checkElement($element, $secondArray) && !checkElement($element, $thirdArray)) {
+      $onlyInFirst[] = $element;
     }
   }
-  return $onlyInfirst;
+  
+  return $onlyInFirst;
 }
 
 
