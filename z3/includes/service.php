@@ -4,7 +4,7 @@ class ArtikalService
 {
     public function UkupnaVrijednost()
     {
-        include "database.php";
+        include 'includes/config/database.php';
 
         $sql = "SELECT stanje_na_skladistu, cijena FROM tablica_artikala";
         $result = $conn->query($sql);
@@ -28,7 +28,7 @@ class ArtikalService
         }
         $selectedDate = htmlspecialchars($selectedDate);
 
-        include "database.php";
+        include 'includes/config/database.php';
 
         $sql = "SELECT potrebno_nabaviti, cijena_u_nabavi FROM tablica_artikala WHERE krajnji_rok_nabave <= '$selectedDate';";
         $result = $conn->query($sql);
@@ -46,7 +46,7 @@ class ArtikalService
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            include "database.php";
+            include 'includes/config/database.php';
             // Get input values from the form
             $noviArtikal = $_POST['noviArtikal'];
             $stanje = $_POST['stanje'];
@@ -69,17 +69,21 @@ class ArtikalService
     }
     public function IzmjeniStanje()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['novoStanje']) && is_numeric($_POST['novoStanje'])) {
             
-            include "database.php";
+            include 'includes/config/database.php';
             // Get input values from the form
             $artikalId = $_POST['artikalId'];
             $novoStanje = $_POST['novoStanje'];
+
             $sql = "UPDATE tablica_artikala SET stanje_na_skladistu = $novoStanje WHERE id=$artikalId;";
             $conn->query($sql);
+
             $conn->close();
             header("Location: " . $_SERVER['REQUEST_URI']);
             exit();
+        }else{
+            die("Neispravan unos podatka novo stanje");
         }
     }
 }

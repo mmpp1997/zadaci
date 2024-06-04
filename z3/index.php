@@ -1,9 +1,9 @@
 <?php
 
 // Database connection
-include "database.php";
+include 'includes/config/database.php';
 
-include 'service.php';
+include 'includes/service.php';
 $artikalService = new ArtikalService();
 
 // Retrieve data from the database
@@ -20,7 +20,7 @@ $result_2 = $conn->query($sql_2);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="public/css/styles.css">
   <title>Stanje</title>
 </head>
 
@@ -144,5 +144,4 @@ $result_2 = $conn->query($sql_2);
   </form>
   <hr />
 </body>
-
 </html>

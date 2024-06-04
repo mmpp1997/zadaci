@@ -30,7 +30,19 @@ $artikli = [
 ];
 
 // Database connection
-include 'database.php';
+include 'includes/config/database.php';
+
+$create = "CREATE TABLE tablica_artikala (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    artikal VARCHAR(255) NOT NULL,
+    stanje_na_skladistu DECIMAL(10, 2) NOT NULL,
+    cijena DECIMAL(10, 2),
+    mjerna_jedinica VARCHAR(255),
+    potrebno_nabaviti INT,
+    cijena_u_nabavi DECIMAL(10, 2),
+    krajnji_rok_nabave DATE
+);";
+$conn->query($create);
 
 $stmt = $conn->prepare("INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
 VALUES (?, ?, ?, ?, ?, ?, ?)");
