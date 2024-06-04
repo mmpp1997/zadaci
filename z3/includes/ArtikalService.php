@@ -58,16 +58,12 @@ class ArtikalService
             $cijenaUNabavi = htmlspecialchars($_POST['cijenaUNabavi']);
             $krajnjiRok = htmlspecialchars($_POST['krajnjiRok']);
 
-            
-
             $sql = "INSERT INTO tablica_artikala (artikal, stanje_na_skladistu, cijena, mjerna_jedinica, potrebno_nabaviti, cijena_u_nabavi, krajnji_rok_nabave) 
                 VALUES ('$noviArtikal', '$stanje', '$cijena','$mjernaJedinica', '$potrebnoNabaviti', '$cijenaUNabavi', '$krajnjiRok')";
             
             $conn->query($sql);
             $conn->close();
 
-            header("Location: " . $_SERVER['REQUEST_URI']);
-            exit();
         }
         else{
             die("Neispravan unos podatka naziv artikla");
@@ -86,8 +82,6 @@ class ArtikalService
             $conn->query($sql);
             $conn->close();
 
-            header("Location: " . $_SERVER['REQUEST_URI']);
-            exit();
         }else{
             die("Neispravan unos podatka za novo stanje");
         }
